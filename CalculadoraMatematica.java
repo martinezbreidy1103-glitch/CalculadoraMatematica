@@ -1,0 +1,116 @@
+
+import java.util.Scanner;
+
+
+
+
+
+public class CalculadoraMatematica {
+ 
+    // 1. Atributos Privados
+    private double numero1;
+    private double numero2;
+ 
+    ///Constructor por defecto
+     //Inicializa los atributos numéricos en 0.0 al instanciar la clase
+    
+    public CalculadoraMatematica() {
+        this.numero1 = 0.0;
+        this.numero2 = 0.0;
+    }
+ 
+   
+    public void ingresarNumeros(double numero1, double numero2) {
+        this.numero1 = numero1;
+        this.numero2 = numero2;
+    }
+ 
+    /**
+     * Calcula la suma de los dos números.
+     * 
+     * @return resultado de la suma
+     */
+    public double calcularSuma() {
+        return numero1 + numero2;
+    }
+ 
+    /**
+     * Calcula la resta del primer número menos el segundo.
+     * 
+     * @return resultado de la resta
+     */
+    public double calcularResta() {
+        return numero1 - numero2;
+    }
+ 
+    /**
+     * Calcula la multiplicación de los dos números.
+     * 
+     * @return resultado de la multiplicación
+     */
+    public double calcularMultiplicacion() {
+        return numero1 * numero2;
+    }
+ 
+   
+    // * @return resultado de la división, o 0 si se intenta dividir por cero
+     
+    public double calcularDivision() {
+        // Manejo de excepción de división por cero mediante condicional IF
+        if (numero2 == 0) {
+            System.out.println("Error: No se puede dividir por cero.");
+            return 0;
+        }
+        return numero1 / numero2;
+    }
+ 
+    /**
+     * Método principal (main) que ejecuta la aplicación de consola.
+     * @param args
+     */
+    public static void main(String[] args) {
+        try (Scanner entrada = new Scanner(System.in)) {
+            CalculadoraMatematica calc = new CalculadoraMatematica();
+            int opcionMenu;
+            // Bucle do-while para mantener el menú iterando hasta seleccionar 0
+            do {
+                System.out.println("\n===== CALCULADORA MATEMÁTICA =====");
+                System.out.println("1. Ingresar números");
+                System.out.println("2. Sumar");
+                System.out.println("3. Restar");
+                System.out.println("4. Multiplicar");
+                System.out.println("5. Dividir");
+                System.out.println("0. Salir");
+                System.out.println("==================================");
+                System.out.print("Seleccione una opción: ");
+                opcionMenu = entrada.nextInt();
+                // Estructura switch para manejar las opciones del menú
+                switch (opcionMenu) {
+                    case 1 -> {
+                        System.out.print("Ingrese el primer número: ");
+                        double num1 = entrada.nextDouble();
+                        System.out.print("Ingrese el segundo número: ");
+                        double num2 = entrada.nextDouble();
+                        calc.ingresarNumeros(num1, num2);
+                        System.out.println("Números ingresados correctamente.");
+                    }
+                    case 2 -> System.out.println("Resultado de la suma: " + calc.calcularSuma());
+                    case 3 -> System.out.println("Resultado de la resta: " + calc.calcularResta());
+                    case 4 -> System.out.println("Resultado de la multiplicación: " + calc.calcularMultiplicacion());
+                    case 5 -> {
+                        // Verificamos internamente si es 0 para no imprimir un resultado erróneo junto al mensaje de error
+                        if (calc.numero2 == 0) {
+                            calc.calcularDivision(); // Solo ejecutamos para que muestre el mensaje de Error
+                        } else {
+                            System.out.println("Resultado de la división: " + calc.calcularDivision());
+                        }
+                    }
+                    case 0 -> System.out.println("¡Gracias por usar la calculadora!");
+                    default -> System.out.println("Opción no válida. Por favor, seleccione un número del 0 al 5.");
+                }
+            } while (opcionMenu != 0);
+    }
+}
+        }
+ 
+ 
